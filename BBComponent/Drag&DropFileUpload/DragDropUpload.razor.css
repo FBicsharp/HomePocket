@@ -1,0 +1,21 @@
+﻿.drop-zone {
+    padding: 5px;
+    width: 60%;
+    min-height: 100px;
+    border: 2px dashed #0087F7;
+    border-radius: 8px;
+    /*display:flex;*/
+}
+
+    .drop-zone:hover {
+        border-style: solid;
+        background-color: rgba(0, 135, 247, 0.1);
+    }
+
+
+
+.drop-file {
+    visibility: hidden !important;
+    /*    display:flex;
+    flex-grow:inherit;*/
+}

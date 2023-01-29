@@ -1,0 +1,25 @@
+﻿@page "/fileupload"
+
+@*@inject IJSRuntime JSRuntime;*@
+@inject HttpClient Http
+
+
+<PageTitle>File upload</PageTitle>
+<h1>File upload</h1>
+
+
+<BBComponent.Drag_DropFileUpload.DragDropUpload OnFileUploadComplete="FileUploadedHandler"></BBComponent.Drag_DropFileUpload.DragDropUpload>
+
+
+
+
+@code {
+	
+
+
+    private void FileUploadedHandler()
+    {
+        Console.WriteLine("Upload complete!");
+    }
+
+}

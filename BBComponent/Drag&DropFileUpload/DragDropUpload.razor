@@ -1,0 +1,99 @@
+﻿@using Microsoft.AspNetCore.Components.Forms;
+@using Microsoft.JSInterop;
+@inject IJSRuntime JSRuntime;
+@inject HttpClient Http
+
+
+
+
+<div @ref="@dropZoneElement" class="drop-zone">
+	<h3 style="display:inline-flex;">Drop or paste file </h3>
+	<div @ref="@inputFileContainer" class="drop-file">
+		<InputFile OnChange="@OnChange" multiple  class="drop-file"  />
+
+	</div>
+</div>
+
+@*
+@if (imageList != null)
+{
+	<table>
+		<tr>
+
+			@foreach (var item in imageList)
+			{
+				<td>
+					<img  src="@item" width="150" height="150"  />
+				</td>
+			}
+		</tr>
+	</table>
+}
+*@
+
+
+
+@code {
+	[Parameter] 
+	public EventCallback OnFileUploadComplete { get; set; }
+
+
+
+	ElementReference dropZoneElement;
+	ElementReference inputFileContainer;
+
+
+	IJSObjectReference _module;
+	IJSObjectReference _dropzoneInstance;
+	private List<string> imageList;
+	private string imagesrc;
+	private const int maxAllowedFiles = 5;
+
+	private List<string> images;
+
+
+
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (firstRender)
+		{
+			_module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BBComponent/js/fileDropZone.js");
+			images = new();
+		}
+		try
+		{
+			_dropzoneInstance = await _module.InvokeAsync<IJSObjectReference>("initializeFileDropZone", dropZoneElement, inputFileContainer);
+
+		}
+		catch (Exception ex)
+		{
+			
+			Console.WriteLine(ex);
+		}
+	}
+
+
+	async Task OnChange(InputFileChangeEventArgs e)
+	{
+		long maxFileSize = 1024 * 1024 * 15;
+		var files = e.GetMultipleFiles();
+		foreach (var file in files)
+		{
+			using var stream = file.OpenReadStream();
+			//chaiamta api
+			var barray = new byte[stream.Length];
+			await stream.ReadAsync(barray, 0, barray.Length);
+			imagesrc = "data:" + file.ContentType + ";base64," + Convert.ToBase64String(barray);
+			images.Add(imagesrc);
+		}
+		if (OnFileUploadComplete.HasDelegate)
+		{
+			await OnFileUploadComplete.InvokeAsync();			
+		}
+	}
+
+
+
+
+}
