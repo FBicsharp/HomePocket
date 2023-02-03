@@ -1,3 +1,4 @@
+using HomePocket.Server.Context;
 using Microsoft.AspNetCore.ResponseCompression;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddControllers().AddNewtonsoftJson();
+builder.Services.AddEntityFrameworkSqlite().AddDbContext<ChatDbContext>();
 
 var app = builder.Build();
 

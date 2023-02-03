@@ -1,18 +1,3 @@
 ﻿@inherits LayoutComponentBase
 
-<div class="page">
-
-
-	<div style="display:flex;">
-		<BBComponent.NavBar.NavBar3 />
-	</div>
-	<div style="display:flex; margin-top:30px;">
-
-		<main>
-
-			<article class="content px-4">
-				@Body
-			</article>
-		</main>
-	</div>
-</div>
+<BBComponent.NavBar.NavBar3 AppBody="@Body" />

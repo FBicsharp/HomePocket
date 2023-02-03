@@ -7,12 +7,26 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bricelam.EntityFrameworkCore.Pluralizer" Version="1.0.0">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="6.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="6.0.13" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.2">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="7.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Client\HomePocket.Client.csproj" />
     <ProjectReference Include="..\Shared\HomePocket.Shared.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="DB\" />
   </ItemGroup>
 
 

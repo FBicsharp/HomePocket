@@ -130,6 +130,14 @@
 		<i class='bx bx-menu'></i>
 		<span class="text"></span>
 	</div>
+	<main>
+		<article class="content px-4">
+			@if (AppBody!=null)
+			{
+				@AppBody				
+			}
+		</article>
+	</main>
 </section>
 
 
@@ -138,22 +146,22 @@
 
 @code {
 
+	[Parameter]
+	public RenderFragment AppBody { get; set; }
 	IJSObjectReference _module;
 	IJSObjectReference _dropzoneInstance;
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)
 		{
-			_module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BBComponent/js/Menu3.js");
 		}
 		try
 		{
+			_module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BBComponent/js/Menu3.js");
 			_dropzoneInstance = await _module.InvokeAsync<IJSObjectReference>("initializemenu3");
-
 		}
 		catch (Exception ex)
 		{
-
 			Console.WriteLine(ex);
 		}
 	}
