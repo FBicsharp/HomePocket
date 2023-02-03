@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomePocket.Client", "HomePo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HomePocket.Shared", "HomePocket\Shared\HomePocket.Shared.csproj", "{4D775A11-54D0-4FFE-B0B1-ABB60D40C580}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BBComponent", "BBComponent\BBComponent.csproj", "{2A5BE4C0-7350-4DD0-911A-EC7B6F744E84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BBComponent", "BBComponent\BBComponent.csproj", "{2A5BE4C0-7350-4DD0-911A-EC7B6F744E84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

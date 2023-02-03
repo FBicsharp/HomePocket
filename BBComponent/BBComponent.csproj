@@ -7,7 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="NavBar\NavBar1 - Copia.razor.css" />
+    <None Remove="NavBar\NavBar1.razor.css" />
     <None Remove="wwwroot\js\fileDropZone.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="NavBar\NavBar1.razor.css" />
   </ItemGroup>
 
 
