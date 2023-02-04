@@ -148,22 +148,26 @@
 
 	[Parameter]
 	public RenderFragment AppBody { get; set; }
+
 	IJSObjectReference _module;
-	IJSObjectReference _dropzoneInstance;
+	IJSObjectReference _jsInstance;
 	protected override async Task OnAfterRenderAsync(bool firstRender)
 	{
 		if (firstRender)
 		{
+			try
+			{	
+				_module =  await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BBComponent/js/Menu3.js");			
+				_jsInstance =await _module.InvokeAsync<IJSObjectReference>("initializemenu3");
+			}
+			catch (Exception ex)
+			{			
+				Console.WriteLine("Missing Menu3");
+				Console.WriteLine( ex);
+			}
 		}
-		try
-		{
-			_module = await JSRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/BBComponent/js/Menu3.js");
-			_dropzoneInstance = await _module.InvokeAsync<IJSObjectReference>("initializemenu3");
-		}
-		catch (Exception ex)
-		{
-			Console.WriteLine(ex);
-		}
+
 	}
+
 
 }
