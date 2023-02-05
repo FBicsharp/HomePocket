@@ -14,7 +14,7 @@ namespace HomePocket.Client.Services
         }
 
 
-        public async Task<bool> UpdateProfile(User user,int id)
+        public async Task<bool> UpdateProfile(User user,long id)
         {
             
             try
@@ -30,7 +30,7 @@ namespace HomePocket.Client.Services
             
         }
 
-		public async Task<User> GetProfile( int id)
+		public async Task<User> GetProfile( long id)
 		{
             var user = new User();
 			try

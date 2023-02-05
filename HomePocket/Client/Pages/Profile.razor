@@ -1,4 +1,4 @@
-﻿@page "/profile"
+﻿@page "/"
 @using HomePocket.Client.Services;
 @using HomePocket.Client.ViewModels;
 @using HomePocket.Shared.Context;
@@ -18,26 +18,7 @@
 </div>
 
 @code {
-/* 
-	private ProfileViewModel _profileViewModel = new ProfileViewModel();
 
+	protected override async Task OnInitializedAsync()=> await _profileViewModel.GetProfile();
 
-
-
-	private async Task UpdateProfile()
-	{
-		User user = _profileViewModel;
-
-		if (await userService.UpdateProfile(user, 10))
-		{
-			_profileViewModel.Message = "Profile updated successfully";
-		}		
-	}
-
-	private async Task GetProfile()
-	{
-		_profileViewModel = await userService.GetProfile(10);
-		_profileViewModel.Message = "Profile loaded successfully";
-	} 
-	*/
 }
