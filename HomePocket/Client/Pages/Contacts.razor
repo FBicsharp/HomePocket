@@ -9,20 +9,35 @@
 
 <div class="col-12">
     <div class="col-12 row">
-        <input type="text" class="col-9 form-control" placeholder="search"/>
-        <span>&nbsp;</span><button class="btn btn-primary">Search</button>
+        <input type="text" class="col-9 form-control" @bind-value="_contactsViewModel.Filter" placeholder="search"/>
+        <span>&nbsp;</span><button class="btn btn-primary" @onclick="_contactsViewModel.SearchContacts" >Search</button>
     </div>
     <br />
     
-    @if(_contactsViewModel.Contacts != null && _contactsViewModel.Contacts.Count() > 0)
-    {
-        @foreach (var contact in _contactsViewModel.Contacts)
+    @if(string.IsNullOrEmpty(_contactsViewModel.Filter)){
+
+        @if(_contactsViewModel.Contacts != null && _contactsViewModel.Contacts.Count() > 0)
         {
-            <a href="/chat/@contact.ContactId" class="list-group-item list-group-item-action flex-column align-items-start">
-                @contact.FirstName <span> </span> @contact.LastName
-            </a>
+            @foreach (var contact in _contactsViewModel.Contacts)
+            {
+                <a href="/chat/@contact.ContactId" class="list-group-item list-group-item-action flex-column align-items-start">
+                    @contact.FirstName <span> </span> @contact.LastName
+                </a>
+            }
         }
     }
+    else{
+        @if(_contactsViewModel.ContactsFiltered != null && _contactsViewModel.ContactsFiltered.Count() > 0)
+            {
+                @foreach (var contact in _contactsViewModel.ContactsFiltered)
+                {
+                    <a href="/chat/@contact.ContactId" class="list-group-item list-group-item-action flex-column align-items-start">
+                        @contact.FirstName <span> </span> @contact.LastName
+                    </a>
+                }
+            } 
+    }
+
 </div>
 
 @code {

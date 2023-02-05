@@ -36,7 +36,8 @@ namespace HomePocket.Server.Controllers
         {
 
             User userToUpdate = await _context.Users.Where(u => u.UserId == user.UserId).FirstOrDefaultAsync();
-
+            if(userToUpdate == null)  
+                return new User();
             userToUpdate.FirstName = user.FirstName;
             userToUpdate.LastName = user.LastName;
             userToUpdate.EmailAddress = user.EmailAddress;
@@ -49,7 +50,9 @@ namespace HomePocket.Server.Controllers
         [HttpGet("getprofile/{userId}")]
         public async Task<User> GetProfile(int userId)
         {
-            return await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
+            var user = await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
+            user ??= new User();            
+            return user;
         }
 
         [HttpPut("UpdateNotifications/{id}/{notification}")]
@@ -57,7 +60,8 @@ namespace HomePocket.Server.Controllers
         {
 
             User user = await _context.Users.Where(u => u.UserId == id).FirstOrDefaultAsync();
-
+            if(user == null)  
+                return new User();
             user.Notifications = notification;
             await _context.SaveChangesAsync();
             return await Task.FromResult(user);
@@ -68,7 +72,8 @@ namespace HomePocket.Server.Controllers
         {
 
             User user = await _context.Users.Where(u => u.UserId == id).FirstOrDefaultAsync();
-
+            if(user == null)  
+                return new User();
             user.DarkTheme = theme;
             await _context.SaveChangesAsync();
             return await Task.FromResult(user);
