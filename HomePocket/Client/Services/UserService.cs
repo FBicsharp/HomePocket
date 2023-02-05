@@ -14,12 +14,46 @@ namespace HomePocket.Client.Services
         }
 
 
+
+        public async Task<bool> UpdateTheme(User user,long id)
+        {
+            
+            try
+            {
+                var msg = await _client.PutAsJsonAsync($"User/UpdateTheme/{id}", user.DarkTheme);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);                
+                return false;
+            }
+            return true;
+            
+        }
+
+
+        public async Task<bool> UpdateNotifications(User user,long id)
+        {
+            
+            try
+            {
+                var msg = await _client.PutAsJsonAsync($"User/UpdateNotifications/{id}", user.Notifications);
+            }
+            catch (Exception ex)
+            {
+                await Console.Out.WriteLineAsync(ex.Message);                
+                return false;
+            }
+            return true;
+            
+        }
+
         public async Task<bool> UpdateProfile(User user,long id)
         {
             
             try
             {
-                var msg = await _client.PutAsJsonAsync($"user/UpdateProfile/{id}", user);
+                var msg = await _client.PutAsJsonAsync($"User/UpdateProfile/{id}", user);
             }
             catch (Exception ex)
             {
@@ -35,7 +69,7 @@ namespace HomePocket.Client.Services
             var user = new User();
 			try
 			{
-				user = await _client.GetFromJsonAsync<User>($"user/GetProfile/{id}");
+				user = await _client.GetFromJsonAsync<User>($"User/GetProfile/{id}");
 			}
 			catch (Exception ex)
 			{
@@ -45,5 +79,19 @@ namespace HomePocket.Client.Services
 
 		}
 
-	}
+        public async Task<List<User>> GetAllUser()
+        {
+             
+            var userlist = new List<User>();
+			try
+			{
+				userlist = await _client.GetFromJsonAsync<List<User>>($"User");
+			}
+			catch (Exception ex)
+			{
+				await Console.Out.WriteLineAsync(ex.Message);
+			}
+			return userlist;
+        }
+    }
 }

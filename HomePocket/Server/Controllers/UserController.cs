@@ -21,30 +21,13 @@ namespace HomePocket.Server.Controllers
             
         }
 
-        //[HttpGet]
-        //public IEnumerable<Contact> Get()
-        //{
-        //    var users = _context.Users.ToList();
-        //    var contacts = new List<Contact>();
-        //    foreach (var item in users)
-        //    {
-        //        contacts.Add(new Contact((int)item.UserId, item.FirstName, item.LastName));
-        //    }
-
-
-        //    return contacts;
-        //}
         [HttpGet]
-        public List<Contact> Get()
+        public async Task<List<User>> GetAllUser()
         {
-            List<User> users = _context.Users.ToList();
+            List<User> users = await _context.Users.ToListAsync();
             List<Contact> contacts = new List<Contact>();
-
-            foreach (var user in users)
-            {
-                contacts.Add(new Contact(user.FirstName, user.LastName));
-            }
-            return contacts;
+            return users;
+            
         }
 
 
@@ -68,5 +51,31 @@ namespace HomePocket.Server.Controllers
         {
             return await _context.Users.Where(u => u.UserId == userId).FirstOrDefaultAsync();
         }
+
+        [HttpPut("UpdateNotifications/{id}/{notification}")]
+        public async Task<User> UpdateNotifications(int id,long notification)
+        {
+
+            User user = await _context.Users.Where(u => u.UserId == id).FirstOrDefaultAsync();
+
+            user.Notifications = notification;
+            await _context.SaveChangesAsync();
+            return await Task.FromResult(user);
+        }
+
+        [HttpPut("UpdateTheme/{id}/{theme}")]
+        public async Task<User> UpdateTheme(int id,long theme)
+        {
+
+            User user = await _context.Users.Where(u => u.UserId == id).FirstOrDefaultAsync();
+
+            user.DarkTheme = theme;
+            await _context.SaveChangesAsync();
+            return await Task.FromResult(user);
+        }
+
+
+
+
     }
 }

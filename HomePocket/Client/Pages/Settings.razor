@@ -1,0 +1,25 @@
+﻿@page "/settings"
+@using HomePocket.Client.Services;
+@using HomePocket.Client.ViewModels;
+@using HomePocket.Shared.Context;
+@inject HttpClient HttpClient
+@inject ISettingsViewModel _settingsViewModel
+
+<div class="col-12">
+	<input type="checkbox" @bind-value="_settingsViewModel.Notification"  id="chkNotification">
+	<label>Notification</label>
+	<br />
+	<input type="checkbox" @bind-value="_settingsViewModel.DarkTheme"  id="chkDarkTheme">
+	<label>DarkTheme</label>
+	<br />
+	
+</div>
+<div class="col-12">
+<button class="btn btn-primary" @onclick="_settingsViewModel.Save">Save</button>
+</div>
+
+@code {
+
+	protected override async Task OnInitializedAsync()=> await _settingsViewModel.Load();
+
+}
