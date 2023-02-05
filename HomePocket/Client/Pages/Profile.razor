@@ -1,0 +1,43 @@
+﻿@page "/profile"
+@using HomePocket.Client.Services;
+@using HomePocket.Client.ViewModels;
+@using HomePocket.Shared.Context;
+@inject HttpClient HttpClient
+@inject IProfileViewModel _profileViewModel
+
+<div class="col-12">
+	<input type="text" @bind-value="_profileViewModel.FirstName" class="form-control" placeholder="first name">
+	<br />
+	<input type="text" @bind-value="_profileViewModel.LastName" class="form-control" placeholder="last name">
+	<br />
+	<input type="text" @bind-value="_profileViewModel.EmailAddress" class="form-control" placeholder="email address">
+	<br />
+	<button class="btn btn-primary" @onclick="_profileViewModel.UpdateProfile">Update Profile</button>
+	<button class="btn btn-primary" @onclick="_profileViewModel.GetProfile">Get Profile</button>
+	<span>&nbsp;&nbsp;</span>@_profileViewModel.Message
+</div>
+
+@code {
+/* 
+	private ProfileViewModel _profileViewModel = new ProfileViewModel();
+
+
+
+
+	private async Task UpdateProfile()
+	{
+		User user = _profileViewModel;
+
+		if (await userService.UpdateProfile(user, 10))
+		{
+			_profileViewModel.Message = "Profile updated successfully";
+		}		
+	}
+
+	private async Task GetProfile()
+	{
+		_profileViewModel = await userService.GetProfile(10);
+		_profileViewModel.Message = "Profile loaded successfully";
+	} 
+	*/
+}

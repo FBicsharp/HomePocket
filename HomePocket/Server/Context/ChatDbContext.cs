@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using HomePocket.Shared.Context;
 using Microsoft.EntityFrameworkCore;
 
 namespace HomePocket.Server.Context;

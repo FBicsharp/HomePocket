@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace HomePocket.Server.Context;
+namespace HomePocket.Shared.Context;
 
 public partial class ChatHistory
 {
