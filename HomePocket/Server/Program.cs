@@ -1,4 +1,5 @@
 using HomePocket.Server.Context;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.OpenApi.Models;
 
@@ -10,6 +11,11 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddEntityFrameworkSqlite().AddDbContext<ChatDbContext>();
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+}
+).AddCookie();
 
 
 builder.Services.AddSwaggerGen(options =>
@@ -22,7 +28,8 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseWebAssemblyDebugging();
+	app.UseDeveloperExceptionPage();
+	app.UseWebAssemblyDebugging();
 }
 else
 {
@@ -44,7 +51,7 @@ app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseAuthentication();
 
 app.MapRazorPages();
 app.MapControllers();

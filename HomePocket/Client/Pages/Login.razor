@@ -1,0 +1,27 @@
+﻿@page "/"
+@using HomePocket.Client.ViewModels.Auth
+@inject ILoginViewModel _loginViewModel
+@inject NavigationManager _navigationManager
+
+<h3>Login</h3>
+
+<div class="col-6">
+	<input type="text" @bind="_loginViewModel.EmailAddress" class="form-control" placeholder="email address">
+</div>
+<br />
+<div class="col-6">
+	<input type="password" @bind="_loginViewModel.Password" class="form-control" placeholder="password">
+</div>
+<br />
+<div class="col-6">
+	<button class="btn btn-primary" @onclick="_loginViewModel.Login">Login</button>
+	<button class="btn btn-primary" @onclick="_loginViewModel.Logout">Logout</button>
+</div>
+<div class="col-6">
+	<label style="color:red;">@_loginViewModel.Message</label>
+</div>
+
+
+@code {
+
+}
