@@ -1,5 +1,6 @@
 ﻿using HomePocket.Client.Services;
 using HomePocket.Shared.Context;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace HomePocket.Client.ViewModels
 {
@@ -46,5 +47,17 @@ namespace HomePocket.Client.ViewModels
             }
         }
 
-    }
+		public async ValueTask<ItemsProviderResult<Contact>> GetVisibleContacts(ItemsProviderRequest itemsProviderRequest)
+		{
+            Console.WriteLine("Start Index "+itemsProviderRequest.StartIndex);
+            Console.WriteLine("Count "+ itemsProviderRequest.Count);
+			Console.WriteLine("start request" + DateTime.Now.ToString("hh:mm:ss:fff"));
+			List<User> users = await _userService.GetVisibleUser(itemsProviderRequest.StartIndex, itemsProviderRequest.Count);			
+			Console.WriteLine("Converting obj " + DateTime.Now.ToString("hh:mm:ss:fff"));
+			LoadCurrentObject(users);
+			Console.WriteLine("end" + DateTime.Now.ToString("hh:mm:ss:fff"));
+			return new ItemsProviderResult<Contact>(this.Contacts, 20000 );
+
+		}
+	}
 }

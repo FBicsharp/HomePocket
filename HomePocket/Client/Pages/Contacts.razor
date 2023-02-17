@@ -8,42 +8,59 @@
 <hr />
 
 <div class="col-12">
-    <div class="col-12 row">
-        <input type="text" class="col-9 form-control" @bind-value="_contactsViewModel.Filter" placeholder="search"/>
-        <span>&nbsp;</span><button class="btn btn-primary" @onclick="_contactsViewModel.SearchContacts" >Search</button>
-    </div>
-    <br />
-    
-    @if(string.IsNullOrEmpty(_contactsViewModel.Filter)){
+	<div class="col-12 row">
+		<input type="text" class="col-9 form-control" @bind-value="_contactsViewModel.Filter" placeholder="search" />
+		<span>&nbsp;</span><button class="btn btn-primary" @onclick="_contactsViewModel.SearchContacts">Search</button>
+	</div>
+	<br />
+	@if (string.IsNullOrEmpty(_contactsViewModel.Filter))
+	{
 
-        @if(_contactsViewModel.Contacts != null && _contactsViewModel.Contacts.Count() > 0)
-        {
-            @foreach (var contact in _contactsViewModel.Contacts)
-            {
-                <a href="/chat/@contact.ContactId" class="list-group-item list-group-item-action flex-column align-items-start">
-                    @contact.FirstName <span> </span> @contact.LastName
-                </a>
-            }
-        }
-    }
-    else{
-        @if(_contactsViewModel.ContactsFiltered != null && _contactsViewModel.ContactsFiltered.Count() > 0)
-            {
-                @foreach (var contact in _contactsViewModel.ContactsFiltered)
-                {
-                    <a href="/chat/@contact.ContactId" class="list-group-item list-group-item-action flex-column align-items-start">
-                        @contact.FirstName <span> </span> @contact.LastName
-                    </a>
-                }
-            } 
-    }
+
+		@if (_contactsViewModel.Contacts != null && _contactsViewModel.Contacts.Count() > 0)
+		{
+			<Virtualize ItemsProvider="_contactsViewModel.GetVisibleContacts" Context="contact">
+				<ItemContent>
+					<a href="/chat/@contact.ContactId" class="list-group-item list-group-item-action flex-column align-items-start">
+						@contact.FirstName <span> </span> @contact.LastName
+					</a>
+				</ItemContent>
+				<Placeholder>
+					<p>Wait...</p>
+				</Placeholder>
+			</Virtualize>
+			@*	@foreach (var contact in _contactsViewModel.Contacts)
+	{
+	<a href="/chat/@contact.ContactId" class="list-group-item list-group-item-action flex-column align-items-start">
+	@contact.FirstName <span> </span> @contact.LastName
+	</a>
+	}*@
+		}
+	}
+	else
+	{
+		@if (_contactsViewModel.ContactsFiltered != null && _contactsViewModel.ContactsFiltered.Count() > 0)
+		{
+		@*	<Virtualize Items="_contactsViewModel.ContactsFiltered" Context="contact">
+				<a href="/chat/@contact.ContactId" class="list-group-item list-group-item-action flex-column align-items-start">
+					@contact.FirstName <span> </span> @contact.LastName
+				</a>
+			</Virtualize>*@
+			@*@foreach (var contact in _contactsViewModel.ContactsFiltered)
+	{
+	<a href="/chat/@contact.ContactId" class="list-group-item list-group-item-action flex-column align-items-start">
+	@contact.FirstName <span> </span> @contact.LastName
+	</a>
+	}*@
+		}
+	}
 
 </div>
 
 @code {
-    protected override async Task OnInitializedAsync() => await _contactsViewModel.GetContacts();
-    private void NavigateToChat()
-    {
-        NavigationManager.NavigateTo("/chat");
-    }
+	protected override async Task OnInitializedAsync() => await _contactsViewModel.GetContacts();
+	private void NavigateToChat()
+	{
+		NavigationManager.NavigateTo("/chat");
+	}
 }

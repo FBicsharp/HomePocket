@@ -26,12 +26,29 @@ namespace HomePocket.Server.Controllers
         {
             List<User> users = await _context.Users.ToListAsync();
             List<Contact> contacts = new List<Contact>();
+            for (int i = 0; i < 20000; i++)
+            {
+                users.Add(new User() { FirstName = "name" + i, EmailAddress = "mail" + i, UserId = i + 999, LastName = "" });
+            }
+
+
             return users;
             
         }
+		[HttpGet("GetVisibleUser")]
+		public async Task<List<User>> GetVisibleUser(int startsIndex,int count)
+		{
+            List<User> users = new();// await _context.Users.ToListAsync();
+			for(int i = 0; i < 20000; i++)
+            {
+				users.Add(new User() { FirstName = "name" + i, EmailAddress = "mail" + i, UserId = i + 999, LastName = "" });
+			}
+			return users.Skip(startsIndex).Take(count).ToList();
+
+		}
 
 
-        [HttpPut("UpdateProfile/{id}")]
+		[HttpPut("UpdateProfile/{id}")]
         public async Task<User> UpdateProfile(int id,User user)
         {
 

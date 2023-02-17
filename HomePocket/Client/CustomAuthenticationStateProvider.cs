@@ -19,9 +19,6 @@ namespace HomePocket.Client
 
 		public async override Task<AuthenticationState> GetAuthenticationStateAsync()
 		{
-
-
-
 			var loggedUser = await _authService.GetCurrentLoggedUser();
 			if (loggedUser == null || string.IsNullOrEmpty(loggedUser.EmailAddress))
 				return new AuthenticationState(new ClaimsPrincipal(new ClaimsIdentity()));

@@ -93,5 +93,19 @@ namespace HomePocket.Client.Services
 			}
 			return userlist;
         }
-    }
+		public async Task<List<User>> GetVisibleUser(int startsIndex, int count)
+		{
+
+			var userlist = new List<User>();
+			try
+			{
+				userlist = await _client.GetFromJsonAsync<List<User>>($"User/GetVisibleUser?startsIndex={startsIndex}&count={count}");
+			}
+			catch (Exception ex)
+			{
+				await Console.Out.WriteLineAsync(ex.Message);
+			}
+			return userlist;
+		}
+	}
 }

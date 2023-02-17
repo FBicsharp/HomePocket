@@ -1,4 +1,5 @@
 using HomePocket.Client.ViewModels;
+using Microsoft.AspNetCore.Components.Web.Virtualization;
 
 namespace HomePocket.Client.ViewModels
 {
@@ -10,7 +11,8 @@ namespace HomePocket.Client.ViewModels
         public string Filter { get; set; }
         public Task GetContacts();
         public Task SearchContacts();
-        
 
-    }
+		public ValueTask<ItemsProviderResult<Contact>> GetVisibleContacts(ItemsProviderRequest itemsProviderRequest);
+
+	}
 }
